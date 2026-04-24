@@ -50,8 +50,9 @@ static Scanner theScanner = new Scanner(System.in);
             System.out.println("=== Display Menu ===");
             System.out.println();
             System.out.println("1.List all items");
-            System.out.println("2.Display Cart");
-            System.out.println("Main Menu");
+            System.out.println("2.Search Product");
+            System.out.println("3.Add to Cart");
+            System.out.println("4.Back to Main Menu");
             System.out.println();
             System.out.print("Please choose an option: ");
             int usersChoice = theScanner.nextInt();
@@ -67,7 +68,7 @@ static Scanner theScanner = new Scanner(System.in);
                     }
                     break;
                 case 2:
-                    System.out.println("CART");
+
                     break;
                 case 3:
                     return;
@@ -113,5 +114,110 @@ static Scanner theScanner = new Scanner(System.in);
         return inventory;
 
     }//END OF ArrayList<Product> METHOD
+    public static void searchMenu(){
+    //Variable for the searchMenu
+        boolean isRunning = false;
+        while(!isRunning){
+            //Prompt user How they want to search things
+            System.out.println();
+            System.out.println("What do you want to search your item by?");
+            System.out.println();
+            System.out.println("1.Search by SKU");
+            System.out.println("2.Search by Name");
+            System.out.println("3.Search by Price");
+            System.out.println("4.Search by Department");
+            System.out.println();
+            System.out.print("Choose an option: ");
+            int usersInput = theScanner.nextInt();
+
+            boolean found = false;
+            switch(usersInput){
+                case 1:
+                    while(!found) {
+                        System.out.println("=== Search by SKU ===");
+                        System.out.println();
+                        System.out.println("Type in item SKU");
+                        System.out.println();
+                        String searchSku = theScanner.nextLine();
+
+                        //Use a loop to iterate through the object array
+                        for (int i = 0; i < inventory.size(); i++) {
+                            Product p = inventory.get(i);
+                            if (searchSku.equalsIgnoreCase(p.getProductSku())) {
+                                System.out.println();
+                                System.out.println("Your item SKU matches this item: ");
+                                System.out.println(p.getProductName() + " | " + p.getProductPrice());
+                            }
+                        }
+                    }
+                    break;
+                case 2:
+                    while(!found) {
+                        System.out.println("=== Search by Name ===");
+                        System.out.println();
+                        System.out.print("Type in the Item Name");
+                        System.out.println();
+                        String searchName = theScanner.nextLine();
+
+                        //Use a loop to iterate through the object array
+                        for (int i = 0; i < inventory.size(); i++) {
+                            Product p = inventory.get(i);
+                            if (searchName.equalsIgnoreCase(p.getProductSku())) {
+                                System.out.println();
+                                System.out.println("Your Item Search Matches this Item: ");
+                                System.out.println(p.getProductName() + " | " + p.getProductPrice());
+                            }
+                        }
+                    }
+                    break;
+                case 3:
+                    while(!found){
+                        //Prompt users to type in the Range
+                        System.out.println("=== Search by Price Range ===");
+                        System.out.println();
+                        System.out.println("What is Minimum Price?");
+                        int minPriceSearch = theScanner.nextInt();
+                        System.out.println("What is Maximum Price");
+                        int maxPriceSearch = theScanner.nextInt();
+
+                        //Use a loop to iterate through the object array
+                        for(int i = 0; i < inventory.size(); i++){
+                            Product p = inventory.get(i);
+                            if(minPriceSearch <= p.getProductPrice() && maxPriceSearch >= p.getProductPrice()){
+                                System.out.println();
+                                System.out.println("These are the Items that are within the Price Range: ");
+                                System.out.println();
+                                System.out.println(p.getProductName() + " | " + p.getProductPrice());
+                            }
+                        }
+                    }
+                    break;
+                case 4:
+                    while(!found){
+                        //Prompt users to type in department
+                        System.out.println("=== Search by Department ===");
+                        System.out.println();
+                        System.out.print("Type the Item Department");
+                        System.out.println();
+                        String searchDepartment = theScanner.nextLine();
+
+                        //Use a loop to iterate through the object array
+                        for (int i = 0; i < inventory.size(); i++) {
+                            Product p = inventory.get(i);
+                            if (searchDepartment.equalsIgnoreCase(p.getDepartment())) {
+                                System.out.println();
+                                System.out.println("Your Department Searches Matches these Item: ");
+                                System.out.println(p.getProductName() + " | " + p.getProductPrice());
+                            }
+                        }
+                    }
+                    break;
+                case 5:
+                    break;
+
+            }
+
+        }
+    }
 
 }//END OF THE OnlineStoreApp CLASS
