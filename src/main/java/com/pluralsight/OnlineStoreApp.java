@@ -42,6 +42,17 @@ static Scanner theScanner = new Scanner(System.in);
             fileReader = new FileReader("src/main/resources/product.csv");
             BufferedReader bufReader = new BufferedReader(fileReader);
 
+            //Need a loop to iterate through the files
+            String line;
+            while((line = bufReader.readLine()) != null){
+                //Make it to an array, so it holds a list of the splits strings
+                String[] lineSplit = line.split("\\|");
+                //Organize the split stuff into their category
+                String nameSplit = lineSplit[0];
+                double priceSplit = Double.parseDouble(lineSplit[1]);
+                String departmentSplit = lineSplit[2];
+            }
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
