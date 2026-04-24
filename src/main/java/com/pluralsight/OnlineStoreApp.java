@@ -1,4 +1,7 @@
 package com.pluralsight;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
 public class OnlineStoreApp {
 static Scanner theScanner = new Scanner(System.in);
@@ -30,7 +33,19 @@ static Scanner theScanner = new Scanner(System.in);
             }
         }
 
-
     }//END OF storeMenu METHOD
+
+    public void displayProduct(){
+        //Need to something to read the csv
+        FileReader fileReader = null;
+        try {
+            fileReader = new FileReader("src/main/resources/product.csv");
+            BufferedReader bufReader = new BufferedReader(fileReader);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }//END OF THE OnlineStoreApp CLASS
