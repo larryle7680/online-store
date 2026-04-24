@@ -2,18 +2,29 @@ package com.pluralsight;
 
 public class Product {
     //Properties for my Products
+    private String productSku;
     private String productName;
     private double productPrice;
-    private String Department;
+    private String department;
 
     //Added a constructor
-    public Product(String productName, double productPrice, String department) {
+    public Product(String productSku,String productName, double productPrice, String department) {
+        this.productSku = productSku;
         this.productName = productName;
         this.productPrice = productPrice;
-        Department = department;
+        this.department = department;
     }
 
     //Added Setters/Getters
+
+
+    public String getProductSku() {
+        return productSku;
+    }
+
+    public void setProductSku(String productSku) {
+        this.productSku = productSku;
+    }
 
     public String getProductName() {
         return productName;
@@ -32,10 +43,10 @@ public class Product {
     }
 
     public String getDepartment() {
-        return Department;
+        return department;
     }
 
     public void setDepartment(String department) {
-        Department = department;
+        this.department = department;
     }
 }

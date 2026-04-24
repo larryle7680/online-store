@@ -2,7 +2,6 @@ package com.pluralsight;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.sql.SQLOutput;
 import java.util.*;
 public class OnlineStoreApp {
 static Scanner theScanner = new Scanner(System.in);
@@ -15,11 +14,10 @@ static Scanner theScanner = new Scanner(System.in);
     }//END OF MAIN METHOD
 
     public static void storeMenu(){
-        ArrayList<Product> inventory = getInventory();
 
         //Initiate storeMenu variables
-        boolean isRunning = false;
-
+        boolean isRunning = true;
+        while(isRunning){
         //Display the store Menu and store users choice
         System.out.println();
         System.out.println("=== Store Menu ===");
@@ -31,7 +29,7 @@ static Scanner theScanner = new Scanner(System.in);
         System.out.print("Please choose an option: ");
         int usersChoice = theScanner.nextInt();
 
-        while(isRunning){
+
             switch(usersChoice){
                 case 1:
                     displayProduct();
@@ -43,28 +41,29 @@ static Scanner theScanner = new Scanner(System.in);
 
     public static void displayProduct(){
     //Import the loaded array into this method
-        ArrayList<Product> inventory= getInventory();
-
-        //Prompt the users what options they want
-        System.out.println();
-        System.out.println("=== Display Menu ===");
-        System.out.println();
-        System.out.println("1.List all items");
-        System.out.println("2.Display Cart");
-        System.out.println("Main Menu");
-        System.out.println();
-        System.out.print("Please choose an option: ");
-        int usersChoice = theScanner.nextInt();
-
+        ArrayList<Product> inventory = getInventory();
         //displaySubMenu while loop/switch statement
         boolean isRunning = false;
         while(!isRunning){
+        //Prompt the users what options they want
+            System.out.println();
+            System.out.println("=== Display Menu ===");
+            System.out.println();
+            System.out.println("1.List all items");
+            System.out.println("2.Display Cart");
+            System.out.println("Main Menu");
+            System.out.println();
+            System.out.print("Please choose an option: ");
+            int usersChoice = theScanner.nextInt();
+
+
+
             switch(usersChoice){
                 case 1:
-                    for(int i = 0; i < inventory.size(); i++){
-                        Product p = inventory.get(i);
-                        System.out.printf("Name: %s | Price: $%.2f | Department: %s\n",
-                                p.getProductName(),p.getProductPrice(),p.getDepartment());
+                    for (Product p : inventory) {
+                        System.out.printf("SKU: %s | Name: %s | Price: $%.2f | Department: %s\n",
+                                p.getProductSku(), p.getProductName(), p.getProductPrice(), p.getDepartment());
+
                     }
                     break;
                 case 2:
@@ -82,27 +81,28 @@ static Scanner theScanner = new Scanner(System.in);
         //Need to something to read the csv
         FileReader fileReader = null;
         try {
-            fileReader = new FileReader("src/main/resources/product.csv");
+            fileReader = new FileReader("src/main/resources/products.csv");
             BufferedReader bufReader = new BufferedReader(fileReader);
 
             //Need a loop to iterate through the files
             String line;
+            //Skip the Header
+            bufReader.readLine();
             while((line = bufReader.readLine()) != null){
                 //Make it to an array, so it holds a list of the splits strings
                 String[] lineSplit = line.split("\\|");
-
                 //Organize the split stuff into their category
-                String nameSplit = lineSplit[0];
-                double priceSplit = Double.parseDouble(lineSplit[1]);
-                String departmentSplit = lineSplit[2];
+                String skuSplit = lineSplit[0];
+                String nameSplit = lineSplit[1];
+                double priceSplit = Double.parseDouble(lineSplit[2]);
+                String departmentSplit = lineSplit[3];
 
                 //Add them into an Array
-                inventory.add(new Product(nameSplit,priceSplit,departmentSplit));
+                inventory.add(new Product(skuSplit,nameSplit,priceSplit,departmentSplit));
 
             }
-
-            //Close the bufReader
             bufReader.close();
+
         } catch (Exception e) {
             System.out.println("Could not find that file");
             throw new RuntimeException(e);
@@ -111,7 +111,6 @@ static Scanner theScanner = new Scanner(System.in);
 
         //return the inventory
         return inventory;
-
 
     }//END OF ArrayList<Product> METHOD
 
