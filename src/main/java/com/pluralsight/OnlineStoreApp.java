@@ -36,6 +36,12 @@ static Scanner theScanner = new Scanner(System.in);
     }//END OF storeMenu METHOD
 
     public void displayProduct(){
+
+    }//END OF displayProduct METHOD
+    public ArrayList<Product> getInventory(){
+        //Made an empty array list to hold our products
+        ArrayList<Product> inventory = new ArrayList<Product>();
+
         //Need to something to read the csv
         FileReader fileReader = null;
         try {
@@ -47,15 +53,21 @@ static Scanner theScanner = new Scanner(System.in);
             while((line = bufReader.readLine()) != null){
                 //Make it to an array, so it holds a list of the splits strings
                 String[] lineSplit = line.split("\\|");
+
                 //Organize the split stuff into their category
                 String nameSplit = lineSplit[0];
                 double priceSplit = Double.parseDouble(lineSplit[1]);
                 String departmentSplit = lineSplit[2];
+
+                //Add them into an Array
+                inventory.add(new Product(nameSplit,priceSplit,departmentSplit));
             }
 
         } catch (Exception e) {
+            System.out.println("Could not find that file");
             throw new RuntimeException(e);
         }
+
 
     }
 
