@@ -2,9 +2,9 @@ package com.pluralsight;
 
 public class Product {
     //Properties for my Products
-    String productName;
-    double productPrice;
-    String Department;
+    private String productName;
+    private double productPrice;
+    private String Department;
 
     //Added a constructor
     public Product(String productName, double productPrice, String department) {
